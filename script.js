@@ -1,54 +1,61 @@
-const member2 = {
+const teamMemberList = [
+    {
     name: 'Angela Caroll',
     role: 'Chief Editor',
     image: 'angela-caroll-chief-editor.jpg'
-}
-const member3 = {
+},
+{
     name: 'Walter Gordon',
     role: 'Office Manager',
     image: 'walter-gordon-office-manager.jpg'
-}
-const member4 = {
+},
+{
     name: 'Angela Lopez',
     role: 'Social Media Manager',
     image: 'angela-lopez-social-media-manager.jpg'
-}
-const member5 = {
+},
+{
     name: 'Scott Estrada',
     role: 'Developer',
     image: 'scott-estrada-developer.jpg'
-}
-const member6 = {
+},
+{
     name: 'Barbara Ramos',
     role: 'Graphic Designer',
     image: 'barbara-ramos-graphic-designer.jpg'
 }
+]
 
-const teamMemberList = [member2,member3,member4,member5,member6,]
 
 
-for (let key in teamMemberList) {
-    
-    writeMember(teamMemberList[key].name, teamMemberList[key].role, teamMemberList[key].image)
-    
+for (let i = 0; i < teamMemberList.length; i++) {
+    const element = teamMemberList[i];
+    writeMember(element);
 }
-function writeMember(name, role, image){
-    const memberCard = document.querySelector('.team-card');
+    
+function writeMember(teamMember){
     const memberCardContainer = document.querySelector('.team-container');
-    const newMemberCard = memberCard.cloneNode(true);
-    const newMemberCardName = newMemberCard.querySelector(`h3`)
-    const newMemberCardRole = newMemberCard.querySelector(`p`)
-    const newMemberCardImage = newMemberCard.querySelector(`img`)
-
-    newMemberCardName.textContent = name
-    newMemberCardRole.textContent = role
-    newMemberCardImage.src = `./img/${image}`
-
-    memberCardContainer.appendChild(newMemberCard)
+    memberCardContainer.innerHTML += `
+        <div class="team-card">
+        <div class="card-image">
+        <img src="img/${teamMember.image}" alt="${teamMember.name}"/>
+        </div>
+        <div class="card-text">
+        <h3>${teamMember.name}</h3>
+        <p>${teamMember.role}</p>
+        </div>
+    </div>`;
 }
 function memberAdder(){
-    const newName = document.getElementById('name')
-    const newRole = document.getElementById('role')
-    const newImage = document.getElementById('image')
-    writeMember(newName, newRole, newImage);
+    const newName = document.getElementById('name').value
+    const newRole = document.getElementById('role').value
+    const newImage = document.getElementById('image').value
+    const newMember = {
+        name: newName,
+        role: newRole,
+        image: newImage
+    }
+    writeMember(newMember);
 }
+const button = document.getElementById('addMemberButton')
+button.addEventListener('click', memberAdder)
